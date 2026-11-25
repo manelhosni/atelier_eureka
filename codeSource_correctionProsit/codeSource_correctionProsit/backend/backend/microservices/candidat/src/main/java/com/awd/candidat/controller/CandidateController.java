@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mic1/candidates")
+@RequestMapping({"/candidates", "/candidat", "/candidats", "/mic1/candidates"})
 @Tag(name = "Candidates", description = "Manage candidates and link them to an address")
 public class CandidateController {
 

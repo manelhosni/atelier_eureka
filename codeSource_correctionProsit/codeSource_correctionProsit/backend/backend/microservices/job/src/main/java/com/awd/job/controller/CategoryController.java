@@ -21,7 +21,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping({"/api/categories", "/categories", "/category"})
 @Tag(name = "Categories", description = "Manage job categories")
 public class CategoryController {
 

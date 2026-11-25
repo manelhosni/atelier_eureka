@@ -14,9 +14,11 @@ if defined JAVA_HOME (
     if exist "%JAVA_HOME%\bin\java.exe" set "JAVA_BIN=%JAVA_HOME%\bin\java.exe"
 )
 
-REM 2. Verifier dans le repertoire IntelliJ JDKs
+REM 2. Verifier dans le repertoire IntelliJ JDKs ou JDK local
 if not defined JAVA_BIN (
-    if exist "C:\Users\manel\.jdks\ms-17.0.17\bin\java.exe" (
+    if exist "C:\jdk-17.0.12_windows-x64_bin\jdk-17.0.12\bin\java.exe" (
+        set "JAVA_BIN=C:\jdk-17.0.12_windows-x64_bin\jdk-17.0.12\bin\java.exe"
+    ) else if exist "C:\Users\manel\.jdks\ms-17.0.17\bin\java.exe" (
         set "JAVA_BIN=C:\Users\manel\.jdks\ms-17.0.17\bin\java.exe"
     ) else if exist "C:\Users\manel\.jdks\jbr-17.0.14\bin\java.exe" (
         set "JAVA_BIN=C:\Users\manel\.jdks\jbr-17.0.14\bin\java.exe"
@@ -30,12 +32,19 @@ if not defined JAVA_BIN (
     set "JAVA_BIN=java"
 )
 
-set "JAR_PATH=%~dp0codeSource_correctionProsit\backend\backend\microservices\eureka-server\target\eureka-server-0.0.1-SNAPSHOT.jar"
+set "EUREKA_DIR=%~dp0codeSource_correctionProsit\backend\backend\eureka-server"
+if not exist "%EUREKA_DIR%" (
+    set "EUREKA_DIR=%~dp0codeSource_correctionProsit\backend\backend\microservices\eureka-server"
+)
+
+set "JAR_PATH=%EUREKA_DIR%\target\eureka-server-0.0.1-SNAPSHOT.jar"
 
 if not exist "%JAR_PATH%" (
-    echo [ERREUR] Le fichier JAR introuvable: %JAR_PATH%
+    echo [INFO] JAR introuvable, demarrage via mvnw spring-boot:run...
+    cd /d "%EUREKA_DIR%"
+    call mvnw.cmd spring-boot:run
     pause
-    exit /b 1
+    exit /b 0
 )
 
 echo Java utilise : %JAVA_BIN%

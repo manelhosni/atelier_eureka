@@ -57,6 +57,7 @@ app = FastAPI(
 )
 
 app.include_router(notification.router)
+app.include_router(notification.router, prefix="/api")
 
 
 @app.get("/health", summary="Health check endpoint")

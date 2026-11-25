@@ -27,6 +27,8 @@ app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(openapiSpec));
 
 // ---- API routes ----
 app.use('/api/meetings', meetingRoutes);
+app.use('/meetings', meetingRoutes);
+app.use('/meeting', meetingRoutes);
 
 // ---- 404 for unknown routes ----
 app.use((req, res) => {

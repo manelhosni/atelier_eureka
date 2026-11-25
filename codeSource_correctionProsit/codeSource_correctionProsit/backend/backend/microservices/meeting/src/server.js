@@ -6,11 +6,12 @@ const PORT = process.env.PORT || 8083;
 // Configuration du client Eureka
 const eurekaClient = new Eureka({
   instance: {
+    instanceId: `localhost:meeting:${PORT}`,
     app: 'MEETING',
     hostName: 'localhost',
     ipAddr: '127.0.0.1',
     port: {
-      '$': PORT,
+      '$': parseInt(PORT, 10),
       '@enabled': true,
     },
     vipAddress: 'MEETING',
